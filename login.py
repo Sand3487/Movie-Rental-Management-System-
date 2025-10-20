@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from database_connection import create_connection
+import main_dashboard as dashboard  
 
 # Function to verify credentials
 def verify_login(username, password):
@@ -28,24 +29,46 @@ def verify_login(username, password):
         conn.close()
 
 # ------------------------------
-# Main Login GUI
+# Main Login GUI (Matching Dashboard Style)
 # ------------------------------
 def login_window():
     window = tk.Tk()
     window.title("Movie Rental Management System - Login")
-    window.geometry("400x300")
-    window.config(bg="#f5f5f5")
+    window.geometry("500x400")
+    window.config(bg="#e8f0f8")
 
-    tk.Label(window, text="Employee Login", font=("Arial", 16, "bold"), bg="#f5f5f5").pack(pady=20)
+    # ------------------------------
+    # Top Bar
+    # ------------------------------
+    top_frame = tk.Frame(window, bg="#0078D7", height=70)
+    top_frame.pack(fill="x")
 
-    tk.Label(window, text="Username:", bg="#f5f5f5").pack()
-    username_entry = tk.Entry(window, width=30)
-    username_entry.pack(pady=5)
+    tk.Label(
+        top_frame,
+        text="Employee Login",
+        font=("Arial", 28, "bold"),
+        bg="#0078D7",
+        fg="white"
+    ).pack(pady=15)
 
-    tk.Label(window, text="Password:", bg="#f5f5f5").pack()
-    password_entry = tk.Entry(window, show="*", width=30)
-    password_entry.pack(pady=5)
+    # ------------------------------
+    # Login Section
+    # ------------------------------
 
+    form_frame = tk.Frame(window, bg="#e8f0f8")
+    form_frame.pack(pady=10)
+
+    tk.Label(form_frame, text="Username:", bg="#e8f0f8", font=("Arial", 12, "bold"), fg="#2c3e50").grid(row=0, column=0, pady=10, sticky="e")
+    username_entry = tk.Entry(form_frame, width=30, font=("Arial", 12))
+    username_entry.grid(row=0, column=1, pady=10, padx=10)
+
+    tk.Label(form_frame, text="Password:", bg="#e8f0f8", font=("Arial", 12, "bold"), fg="#2c3e50").grid(row=1, column=0, pady=10, sticky="e")
+    password_entry = tk.Entry(form_frame, show="*", width=30, font=("Arial", 12))
+    password_entry.grid(row=1, column=1, pady=10, padx=10)
+
+    # ------------------------------
+    # Handle Login
+    # ------------------------------
     def handle_login():
         username = username_entry.get()
         password = password_entry.get()
@@ -53,12 +76,46 @@ def login_window():
         if verify_login(username, password):
             messagebox.showinfo("Login Successful", f"Welcome, {username}!")
             window.destroy()
-            import gui.main_dashboard as dashboard
             dashboard.dashboard_window(username)
 
-    tk.Button(window, text="Login", bg="#0078D7", fg="white", width=15, command=handle_login).pack(pady=20)
+    # ------------------------------
+    # Login Button (Matching Dashboard)
+    # ------------------------------
+    login_button = tk.Button(
+        window,
+        text="Login",
+        bg="#0078D7",
+        fg="black",
+        width=20,
+        height=2,
+        font=("Arial", 13, "bold"),
+        relief="flat",
+        cursor="hand2",
+        command=handle_login
+    )
+    login_button.pack(pady=30)
+
+    # Hover effect
+    def on_enter(e):
+        e.widget["background"] = "#005bb5"
+    def on_leave(e):
+        e.widget["background"] = "#0078D7"
+    login_button.bind("<Enter>", on_enter)
+    login_button.bind("<Leave>", on_leave)
+
+    # ------------------------------
+    # Footer
+    # ------------------------------
+    tk.Label(
+        window,
+        text="© 2025 Movie Rental Management System",
+        font=("Arial", 10),
+        bg="#e8f0f8",
+        fg="gray"
+    ).pack(side="bottom", pady=15)
 
     window.mainloop()
+
 
 # Entry point
 if __name__ == "__main__":
