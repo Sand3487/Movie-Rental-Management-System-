@@ -33,7 +33,7 @@ def verify_login(username, password):
 # ------------------------------
 def login_window():
     window = tk.Tk()
-    window.title("Movie Rental Management System - Login")
+    window.title("Movie Rental Management System")
     window.geometry("500x400")
     window.config(bg="#e8f0f8")
 

@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import movie_management
 
 def dashboard_window(username):
     # Create main window
@@ -17,7 +18,7 @@ def dashboard_window(username):
     # Dashboard Title (Left)
     tk.Label(
         top_frame,
-        text=f" Main Dashboard",
+        text=f" Main Dashbaord",
         font=("Arial", 35, "bold"),
         bg="#0078D7",
         fg="white"
@@ -57,7 +58,7 @@ def dashboard_window(username):
     tk.Label(
         window,
         text=f"Welcome, {username}",
-        font=("Arial", 18, "bold"),
+        font=("Arial", 16, "bold"),
         bg="#e8f0f8",
         fg="#2c3e50"
     ).pack(pady=25)
@@ -89,7 +90,7 @@ def dashboard_window(username):
 
     # Placeholder functions for other management sections
     def open_movie_management():
-        messagebox.showinfo("Movie Management", "Open Movie Management Window")
+        movie_management.movie_management_window(username) 
 
     def open_customer_management():
         messagebox.showinfo("Customer Management", "Open Customer Management Window")
